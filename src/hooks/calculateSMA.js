@@ -5,7 +5,7 @@ const calculateSMA = (rateBasis, ratePeriod) => {
     let rateContainer = []
     for (let i = 0; i < rateBasis.length; i++) {
         if (i > (ratePeriod - 2)) {
-            elementArray = rateBasis.slice((i - (ratePeriod - 1)), i)
+            elementArray = rateBasis.slice((i - (ratePeriod - 1)), i + 1)
             rateContainer[i] = averageFromArray(elementArray)           
         } else {
             rateContainer[i] = null

@@ -2,21 +2,26 @@ import React from "react"
 import Apexcharts from 'react-apexcharts'
 import SelectorButton from "./SelectorButton"
 import calculateSMA from "../hooks/calculateSMA"
+import calculateEMA from "../hooks/calculateEMA"
 
 const SMAChart = (props) => {
     
-    const smaParams = []
-    for (let key in props.data) {
-        if (props.data[key].dataName) {
-            smaParams.push({
-                dataName: props.data[key].dataName,
-                isVisible: props.data[key].isVisible,
-                smaStep: props.data[key].smaStep
-            })
-        }
-    }
 
-    const [ seriesSelector, setSeriesSelector] = React.useState(smaParams)
+
+    const [ seriesSelector, setSeriesSelector] = React.useState(() => {
+        const smaParams = []
+        for (let key in props.data) {
+            if (props.data[key].dataName) {
+                smaParams.push({
+                    dataName: props.data[key].dataName,
+                    isVisible: props.data[key].isVisible,
+                    smaStep: props.data[key].smaStep,
+                    exp: props.data[key].exp
+                })
+            }
+        }
+        return smaParams
+    })
 
     const changeChart = (e) => {        
         setSeriesSelector(prevSeriesSelector => prevSeriesSelector.map(key => {
@@ -36,7 +41,7 @@ const SMAChart = (props) => {
         if (seriesSelector[i].isVisible) {
             usedCharts.push({
                 name: seriesSelector[i].dataName,
-                data: calculateSMA(props.data.close, seriesSelector[i].smaStep)
+                data: (seriesSelector[i].exp ? calculateEMA(props.data.close, seriesSelector[i].smaStep) : calculateSMA(props.data.close, seriesSelector[i].smaStep))
             })
         }
     }

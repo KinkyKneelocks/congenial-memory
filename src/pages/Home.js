@@ -5,8 +5,9 @@ import CandelstickChart from "../components/CandlestickChart";
 
 const Home = () => {
 
+    let apiUrl = 'https://www.alphavantage.co/query?function=FX_DAILY&from_symbol=USD&to_symbol=HUF&outputsize=full&apikey=ACZ9MQI4XV8R0UOX'
     const [ mainUrl, setMainUrl] = React.useState('https://www.alphavantage.co/query?function=FX_DAILY&from_symbol=EUR&to_symbol=USD&outputsize=full&apikey=demo')
-    const { loading, error, data } = useFetch(mainUrl)
+    const { loading, error, data } = useFetch(apiUrl)
 
     if (loading) {
         return (
@@ -31,24 +32,56 @@ const Home = () => {
                 dataName: 'SMA 20',
                 smaStep: 20, 
                 isVisible: false,
+                exp: false,
                 dataSeries: []
             },
             sma50: {
                 dataName: 'SMA 50',
                 smaStep: 50, 
                 isVisible: true,
+                exp: false,
                 dataSeries: []
             },
             sma100: {
                 dataName: 'SMA 100', 
                 smaStep: 100,
                 isVisible: false,
+                exp: false,
                 dataSeries: []
             },
             sma200: {
                 dataName: 'SMA 200', 
                 smaStep: 200,
                 isVisible: true,
+                exp: false,
+                dataSeries: []
+            },
+            ema20: {
+                dataName: 'EMA 20', 
+                smaStep: 20,
+                isVisible: false,
+                exp: true,
+                dataSeries: []
+            },
+            ema50: {
+                dataName: 'EMA 50', 
+                smaStep: 50,
+                isVisible: false,
+                exp: true,
+                dataSeries: []
+            },
+            ema100: {
+                dataName: 'EMA 100', 
+                smaStep: 100,
+                isVisible: false,
+                exp: true,
+                dataSeries: []
+            },
+            ema200: {
+                dataName: 'EMA 200', 
+                smaStep: 200,
+                isVisible: false,
+                exp: true,
                 dataSeries: []
             },
         }
